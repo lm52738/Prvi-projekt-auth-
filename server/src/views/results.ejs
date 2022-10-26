@@ -21,13 +21,15 @@
             <a class="navbar-brand" href="/results">Results</a>
             <a class="navbar-brand" href="/rounds">Rounds</a>
           </div>
-          <div class="d-flex">
-            <button class="btn btn-outline-success"><%=username%></button>
-          </div>
+          <% if (username) { %>
+            <div class="d-flex">
+              <button class="btn btn-outline-success"><%=username%></button>
+            </div>
+            <% } %>
         </div>
       </nav>
 
-      <div class="container justify-content-center align-items-center">
+      <div class="container justify-content-center align-items-center ">
         <table class="table">
             <thead>
               <tr>

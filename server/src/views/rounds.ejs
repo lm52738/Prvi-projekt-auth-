@@ -21,19 +21,21 @@
             <a class="navbar-brand" href="/results">Results</a>
             <a class="navbar-brand" href="/rounds">Rounds</a>
           </div>
+          <% if (username) { %>
           <div class="d-flex">
             <button class="btn btn-outline-success"><%=username%></button>
           </div>
+          <% } %>
         </div>
-      </nav>
+    </nav>
 
-      <div class="container justify-content-center align-items-center w-75 p-5">
+      <div class="container-md justify-content-center align-items-center my-5 w-75">
         <% for (round of rounds) {%> 
-            <div class="container justify-content-center align-items-center w-75 p-5">
-                <table class="table table-bordered table-hover table-fixed">
+            <div class="container-md m-3 py-3 border border-primary bg-light">
+                <table class="table table-hover table-fixed">
                     <thead>
                         <tr>
-                            <th scope="col" colspan="4">Round <%= round['roundid'] %></th>
+                            <th scope="col" colspan="5">Round <%= round['roundid'] %></th>
                         </tr>
                       </thead>
                       <tbody>
@@ -49,7 +51,9 @@
                                         <td class="col-1"> - </td>
                                     <% } %>
                                     <% if (username == 'admin@mailinator.com') { %>
-                                        <td class="col-1"><a href="/edit/<%= match['matchid'] %>">EDIT</a></td>
+                                        <td class="col-1">
+                                            <a class="btn btn-primary stretched-link" href="/edit/<%= match['matchid'] %>">EDIT</a>
+                                        </td>
                                     <% } %>    
                                 </tr>
                             <% } %> 
@@ -70,22 +74,20 @@
                         </div>
                     </form>
                 
-                    <% if (usercomments != undefined) { %>
                     <% for (comment of usercomments) {%>
                         <% if (comment['roundid'] == round['roundid']) { %>
-                            <div class="container ">
-                                <form class="form-inline d-inline" action="/comment/<%= comment['commentid'] %>" method="post">
-                                    <input type="hidden" class="d-inline" id="roundid" name="roundid" value="<%= round['roundid'] %>">
-                                    <label ><%= comment['created'] %> Author: <%= comment['username'] %></label>
-                                    <input type="text" class="d-inline" id="comment" name="comment" value="<%= comment['commenttext'] %>">
-                                    <button type="submit" class="btn btn-primary mb-2 d-inline ">Edit</button>
+                            <div class="containerd-flex justify-content-start">
+                                <form class="form-inline d-inline" action="/comment/edit/<%= comment['commentid'] %>" method="post">
+                                    <small class=" d-inline"><%= comment['created'] %></small>
+                                    <span class=" d-inline fw-bold"><%= comment['username'] %>:</span>
+                                    <input type="text" class="mx-3 d-inline" id="comment" name="comment" value="<%= comment['commenttext'] %>">
+                                    <button type="submit" class=" btn btn-outline-primary mb-2 d-inline ">Edit</button>
                                 </form>
                                 <form class="form-inline d-inline" action="/comment/delete/<%= comment['commentid'] %>" method="post">
-                                    <button class="d-inline" type="submit">Delete</button>
+                                    <button class="btn btn-outline-primary mb-2 d-inline " type="submit">Delete</button>
                                 </form>
                             </div>
                         <% } %>
-                    <% } %>
                     <% } %>
                     
 
@@ -94,15 +96,15 @@
                 
                 <% for (comment of comments) {%> 
                     <% if (comment['roundid'] == round['roundid']) {%>
-                        <div class="container ">
-                            <p class="d-inline"><%= comment['created'] %></p>
-                            <p class="d-inline">Author: <%= comment['username'] %></p>
-                            <p class="d-inline"><%= comment['commenttext'] %></p>
-                            <% if (username == 'admin@mailinator.com') { %>
-                                <form class="form-inline d-inline" action="/comment/delete/<%= comment['commentid'] %>" method="post">
-                                    <button class="d-inline" type="submit">Delete</button>
-                                </form>
-                            <% } %>
+                        <div class="container d-flex justify-content-start">
+                            <form class="form-inline d-inline" action="/comment/delete/<%= comment['commentid'] %>" method="post">
+                                <small class="d-inline" ><%= comment['created'] %></small>
+                                <span class="d-inline fw-bold"><%= comment['username'] %>:</span>
+                                <span class="mx-3 d-inline fst-italic"><%= comment['commenttext'] %></span>
+                                <% if (username == 'admin@mailinator.com') { %>
+                                    <button type="submit" class=" btn btn-outline-primary mb-2 d-inline ">Delete</button>
+                                <% } %>
+                            </form>
                         </div>
                     <% } %>
                 <% } %>

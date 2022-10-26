@@ -21,10 +21,20 @@
             <a class="navbar-brand" href="/results">Results</a>
             <a class="navbar-brand" href="/rounds">Rounds</a>
           </div>
-          <div class="d-flex">
-            <button class="btn btn-outline-success"><%=username%></button>
-          </div>
+          <% if (username) { %>
+            <div class="d-flex">
+              <button class="btn btn-outline-success"><%=username%></button>
+            </div>
+            <% } %>
         </div>
       </nav>
 
+      <div class="container-md justify-content-center align-items-center my-5 w-75">
+        <h1 class="text-center">
+          Croatian Women's First Football League
+        </h1><br>
+        <h2 class="text-center">
+          1. HNL Women 2022/2023
+        </h2>
+      </div>
 </body>

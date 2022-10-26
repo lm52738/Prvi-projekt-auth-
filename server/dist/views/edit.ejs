@@ -21,15 +21,18 @@
             <a class="navbar-brand" href="/results">Results</a>
             <a class="navbar-brand" href="/rounds">Rounds</a>
           </div>
-          <div class="d-flex">
-            <button class="btn btn-outline-success"><%=username%></button>
-          </div>
+          <% if (username) { %>
+            <div class="d-flex">
+              <button class="btn btn-outline-success"><%=username%></button>
+            </div>
+            <% } %>
         </div>
       </nav>
 
     <div class="container justify-content-center align-items-center w-30 p-5">
         <form action="/edit/<%= match['matchid'] %>" method="post">
-            <h2 for="score1"><%= match['matchtimestamp'] %></h2>
+            <h2><%= match['team1'] %> : <%= match['team2'] %></h2>
+            <h5><%= match['matchtimestamp'] %></h5>
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="basic-addon3"><%= match['team1'] %></span>

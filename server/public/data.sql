@@ -1,21 +1,10 @@
-drop table team cascade;
-drop table round cascade;
-drop table match cascade;
-drop table comment cascade;
-
 CREATE TABLE team
 (
   teamName VARCHAR(50) NOT NULL,
   teamID INT NOT NULL,
   teamPoints INT,
+  teamScore INT,
   PRIMARY KEY (teamID)
-);
-
-CREATE TABLE round
-(
-  roundID INT NOT NULL,
-  roundFinished INT,
-  PRIMARY KEY (roundID)
 );
 
 CREATE TABLE match
@@ -31,41 +20,28 @@ CREATE TABLE match
   PRIMARY KEY (matchID),
   FOREIGN KEY (matchWinnerID) REFERENCES team(teamID),
   FOREIGN KEY (firstTeamID) REFERENCES team(teamID),
-  FOREIGN KEY (secondTeamID) REFERENCES team(teamID),
-  FOREIGN KEY (roundID) REFERENCES round(roundID)
+  FOREIGN KEY (secondTeamID) REFERENCES team(teamID)
 );
 
-CREATE SEQUENCE comment_sqnc start 0 increment 1;
-CREATE TABLE Comment
+CREATE SEQUENCE comment_sqnc start 1 increment 1;
+CREATE TABLE comment
 (
   commentID SERIAL,
   commentText VARCHAR(400) NOT NULL,
   username VARCHAR(100) NOT NULL,
   roundID INT NOT NULL,
   created TIMESTAMP NOT NULL,
-  PRIMARY KEY (commentID),
-  FOREIGN KEY (roundID) REFERENCES round(roundID)
+  PRIMARY KEY (commentID)
 );
 
-INSERT INTO team (teamID, teamName, teamPoints) VALUES (1,'Osijek W',15);
-INSERT INTO team (teamID, teamName, teamPoints) VALUES (4,'ZNK Split W',12);
-INSERT INTO team (teamID, teamName, teamPoints) VALUES (5,'Hajduk Split W',9);
-INSERT INTO team (teamID, teamName, teamPoints) VALUES (8,'Dinamo Maksimir W',9);
-INSERT INTO team (teamID, teamName, teamPoints) VALUES (2,'Agram Zagreb W',6);
-INSERT INTO team (teamID, teamName, teamPoints) VALUES (7,'Zadar W',4);
-INSERT INTO team (teamID, teamName, teamPoints) VALUES (3,'Rijeka W',4);
-INSERT INTO team (teamID, teamName, teamPoints) VALUES (6,'Viktorija Slavonski Brod W',0);
-
-INSERT INTO round ( roundID, roundFinished) VALUES (1,1);
-INSERT INTO round ( roundID, roundFinished) VALUES (2,1);
-INSERT INTO round ( roundID, roundFinished) VALUES (3,1);
-INSERT INTO round ( roundID, roundFinished) VALUES (4,1);
-INSERT INTO round ( roundID, roundFinished) VALUES (5,1);
-INSERT INTO round ( roundID, roundFinished) VALUES (6,0);
-INSERT INTO round ( roundID, roundFinished) VALUES (7,0);
-INSERT INTO round ( roundID, roundFinished) VALUES (8,0);
-INSERT INTO round ( roundID, roundFinished) VALUES (9,0);
-INSERT INTO round ( roundID, roundFinished) VALUES (10,0);
+INSERT INTO team (teamID, teamName, teamPoints,teamScore) VALUES (1,'Osijek W',15,24);
+INSERT INTO team (teamID, teamName, teamPoints,teamScore) VALUES (4,'ZNK Split W',12,14);
+INSERT INTO team (teamID, teamName, teamPoints,teamScore) VALUES (5,'Hajduk Split W',9,20);
+INSERT INTO team (teamID, teamName, teamPoints,teamScore) VALUES (8,'Dinamo Maksimir W',9,15);
+INSERT INTO team (teamID, teamName, teamPoints,teamScore) VALUES (2,'Agram Zagreb W',6,10);
+INSERT INTO team (teamID, teamName, teamPoints,teamScore) VALUES (7,'Zadar W',4,10);
+INSERT INTO team (teamID, teamName, teamPoints,teamScore) VALUES (3,'Rijeka W',4,4);
+INSERT INTO team (teamID, teamName, teamPoints,teamScore) VALUES (6,'Viktorija Slavonski Brod W',0,0);
 
 INSERT INTO match (matchID, roundID, matchTimestamp, firstTeamScore, secondTeamScore, 
 matchWinnerID, firstTeamID, secondTeamID ) VALUES (1,1,'2022-09-11 14:00',2,1,8,5,8);
